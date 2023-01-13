@@ -27,8 +27,8 @@ public class login extends AppCompatActivity {
             String inputs = text.getText().toString();
             if (inputs.isEmpty()) {
                 autoLoad.alart(login.this, "Please enter your TikTok Username");
-            } else if (inputs.contains("$") || inputs.contains("#") || inputs.contains("[") || inputs.contains("]")) {
-                autoLoad.alart(this, "Your username contains one of these [ , ], $, # special charecter. " +
+            } else if (inputs.contains("$") || inputs.contains("#") || inputs.contains("[") || inputs.contains("]") || inputs.contains(".")) {
+                autoLoad.alart(this, "Your username contains one of these [ , ], $, #, Fullstop(.) ,  special charecter. " +
                         "Please Check your username And Correct this username");
             } else {
                 if (Objects.equals(check, "true")) {
