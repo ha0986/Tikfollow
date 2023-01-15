@@ -63,7 +63,7 @@ public class login extends AppCompatActivity {
     }
 
     public void changeScene() {
-        Intent myIntent = new Intent(login.this, profile.class);
+        Intent myIntent = new Intent(login.this, bonus.class);
         startActivity(myIntent);
     }
 
