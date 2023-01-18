@@ -166,7 +166,7 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
 
     @SuppressLint({"SetTextI18n", "ResourceAsColor"})
     public void claim() {
-        autoLoad.showReward(this);
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Days");
         myRef.child(tag).child(autoLoad.userName).setValue(0);
