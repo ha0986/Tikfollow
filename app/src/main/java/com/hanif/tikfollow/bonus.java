@@ -1,5 +1,6 @@
 package com.hanif.tikfollow;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,12 +8,14 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,6 +28,7 @@ import java.util.Objects;
 
 
 public class bonus extends AppCompatActivity implements View.OnClickListener {
+    private RewardedAd mRewardedAd;
     public static String tag;
     public String claimedDate;
     public Integer next;
@@ -58,12 +62,12 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
 
         getDatas();
         autoLoad.loadInter(this);
-        autoLoad.loadReward(this, "ca-app-pub-9422110628550448/1593892548");
 
 
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+        loadReward();
 
     }
 
@@ -153,7 +157,7 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Tikfollow")
                 .setMessage("Watch add to claim this offer")
-                .setPositiveButton("OK", (dialog, which) -> claim())
+                .setPositiveButton("OK", (dialog, which) -> showReward())
                 .setNegativeButton("No", null)
                 .show();
 
@@ -196,6 +200,35 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
         autoLoad.showInter(this);
         Intent myIntent = new Intent(bonus.this, profile.class);
         startActivity(myIntent);
+    }
+
+    public void loadReward() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        RewardedAd.load(bonus.this, "ca-app-pub-9422110628550448/1593892548",
+                adRequest, new RewardedAdLoadCallback() {
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        mRewardedAd = null;
+                        loadReward();
+                    }
+
+                    @Override
+                    public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+                        mRewardedAd = rewardedAd;
+                    }
+                });
+
+    }
+
+    public void showReward() {
+        if (mRewardedAd != null) {
+            mRewardedAd.show(bonus.this, rewardItem -> {
+                // Handle the reward.
+                claim();
+            });
+        } else {
+            loadReward();
+        }
     }
 
 }
