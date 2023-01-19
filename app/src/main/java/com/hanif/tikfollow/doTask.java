@@ -12,10 +12,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.tasks.Task;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
@@ -37,7 +41,7 @@ public class doTask extends AppCompatActivity implements View.OnClickListener {
     public ArrayList<Integer> showInter = new ArrayList<>(Arrays.asList(3, 7, 10, 13));
     private AppUpdateManager appUpdateManager;
     private static final int IMMEDIATE_APP_UPDATE_REQ_CODE = 124;
-
+    private RewardedAd mRewardedAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,6 @@ public class doTask extends AppCompatActivity implements View.OnClickListener {
         autoLoad.getDatas();
         autoLoad.checkNetwork(this);
         autoLoad.loadInter(this);
-        autoLoad.loadReward(this,"ca-app-pub-9422110628550448/4398078885");
 
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -78,7 +81,7 @@ public class doTask extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.reward200:
-                autoLoad.showReward(this);
+                loadReward();
                 break;
             case R.id.jokes:
                 myIntent = new Intent(doTask.this, jokes.class);
@@ -168,6 +171,39 @@ public class doTask extends AppCompatActivity implements View.OnClickListener {
                 Toast.makeText(getApplicationContext(), "Update Failed! Result Code: " + resultCode, Toast.LENGTH_LONG).show();
                 checkUpdate();
             }
+        }
+    }
+
+
+
+    public void loadReward() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        RewardedAd.load(doTask.this, "ca-app-pub-9422110628550448/4398078885",
+                adRequest, new RewardedAdLoadCallback() {
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        mRewardedAd = null;
+                        loadReward();
+                    }
+
+                    @Override
+                    public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+                        mRewardedAd = rewardedAd;
+                        showReward();
+                    }
+                });
+
+    }
+
+    public void showReward() {
+        if (mRewardedAd != null) {
+            mRewardedAd.show(doTask.this, rewardItem -> {
+                // Handle the reward.
+                plusPoints = plusPoints+200;
+                userpoints.setText(String.valueOf(plusPoints));
+            });
+        } else {
+            loadReward();
         }
     }
 }
