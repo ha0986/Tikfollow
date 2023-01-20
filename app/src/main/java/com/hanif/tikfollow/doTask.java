@@ -33,6 +33,7 @@ import java.util.Arrays;
 
 public class doTask extends AppCompatActivity implements View.OnClickListener {
     public Intent myIntent;
+    public String[] toSplit;
     public static TextView userpoints;
     public String minusUser;
     public Integer minusPoint = 500;
@@ -105,20 +106,28 @@ public class doTask extends AppCompatActivity implements View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     public void startTask() {
-        String[] toSplit = autoLoad.nameList.get(click).split("=");
-        minusUser = toSplit[0];
-        plusPoints = plusPoints + 100;
-        minusPoint = Integer.parseInt(toSplit[1]) - 100;
-        autoLoad.storePlusMinus(plusPoints, minusUser, minusPoint);
-        clicked();
-        autoLoad.points = String.valueOf(plusPoints);
-        userpoints.setText(plusPoints.toString());
-        if (showInter.contains(click)) {
-            autoLoad.showInter(this);
+        toSplit = autoLoad.nameList.get(click).split("=");
+        if(toSplit != null){
+            if (toSplit.length<5){
+                autoLoad.getDatas();
+                autoLoad.alart(this, "Please check your data connection");
+        }
+        }else{
+            minusUser = toSplit[0];
+            plusPoints = plusPoints + 100;
+            minusPoint = Integer.parseInt(toSplit[1]) - 100;
+            autoLoad.storePlusMinus(plusPoints, minusUser, minusPoint);
+            clicked();
+            autoLoad.points = String.valueOf(plusPoints);
+            userpoints.setText(plusPoints.toString());
+            if (showInter.contains(click)) {
+                autoLoad.showInter(this);
+            }
+
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.tiktok.com/" + minusUser.trim()));
+            startActivity(intent);
         }
 
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.tiktok.com/" + minusUser.trim()));
-        startActivity(intent);
     }
 
 
