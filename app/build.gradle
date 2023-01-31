@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storePassword 'android'
+            keyPassword 'android'
+            keyAlias 'key0'
+            storeFile file('E:\\tikfollow2\\app\\tikkey.jks')
+        }
+    }
     namespace 'com.hanif.tikfollow'
     compileSdk 33
 
@@ -10,8 +18,8 @@ android {
         applicationId "com.hanif.tikfollow"
         minSdk 21
         targetSdk 33
-        versionCode 18
-        versionName "1.8"
+        versionCode 19
+        versionName "1.9"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -25,7 +33,7 @@ android {
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

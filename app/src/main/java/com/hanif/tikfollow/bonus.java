@@ -50,6 +50,7 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
         Button button6 = findViewById(R.id.button6);
         Button button7 = findViewById(R.id.button7);
         Button button8 = findViewById(R.id.button8);
+        Button goback = findViewById(R.id.goback);
 
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
@@ -68,6 +69,13 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         loadReward();
+
+
+
+        goback.setOnClickListener(v -> {
+            Intent myIntent = new Intent(bonus.this, profile.class);
+            startActivity(myIntent);
+        });
 
     }
 
@@ -113,6 +121,8 @@ public class bonus extends AppCompatActivity implements View.OnClickListener {
         btnText = (String) claimedButton.getText();
         check();
     }
+
+
 
 
     @SuppressLint({"ResourceAsColor", "SetTextI18n"})

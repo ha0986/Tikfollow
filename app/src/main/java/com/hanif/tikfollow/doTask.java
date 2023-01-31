@@ -107,12 +107,6 @@ public class doTask extends AppCompatActivity implements View.OnClickListener {
     @SuppressLint("SetTextI18n")
     public void startTask() {
         toSplit = autoLoad.nameList.get(click).split("=");
-        if(toSplit != null){
-            if (toSplit.length<5){
-                autoLoad.getDatas();
-                autoLoad.alart(this, "Please check your data connection");
-        }
-        }else{
             minusUser = toSplit[0];
             plusPoints = plusPoints + 100;
             minusPoint = Integer.parseInt(toSplit[1]) - 100;
@@ -126,7 +120,7 @@ public class doTask extends AppCompatActivity implements View.OnClickListener {
 
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.tiktok.com/" + minusUser.trim()));
             startActivity(intent);
-        }
+        
 
     }
 
@@ -209,7 +203,9 @@ public class doTask extends AppCompatActivity implements View.OnClickListener {
             mRewardedAd.show(doTask.this, rewardItem -> {
                 // Handle the reward.
                 plusPoints = plusPoints+200;
+                autoLoad.points = String.valueOf(plusPoints);
                 userpoints.setText(String.valueOf(plusPoints));
+                autoLoad.savedata(autoLoad.userName);
             });
         } else {
             loadReward();
