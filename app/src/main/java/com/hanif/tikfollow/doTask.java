@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,9 @@ public class doTask extends AppCompatActivity implements View.OnClickListener {
         Button jokes = findViewById(R.id.jokes);
         Button follow = findViewById(R.id.follow);
         Button bonus = findViewById(R.id.bonuses);
+        ImageButton rate = findViewById(R.id.rating);
+        Button prof = findViewById(R.id.proof);
+
         userpoints = findViewById(R.id.taskpoint);
 
 
@@ -62,15 +66,18 @@ public class doTask extends AppCompatActivity implements View.OnClickListener {
         jokes.setOnClickListener(this);
         follow.setOnClickListener(this);
         bonus.setOnClickListener(this);
+        rate.setOnClickListener(this);
+        prof.setOnClickListener(this);
 
 
         autoLoad.getDatas();
         autoLoad.checkNetwork(this);
-        autoLoad.loadInter(this);
+/*        autoLoad.loadInter(this);
+        loadReward();
 
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        mAdView.loadAd(adRequest);*/
 
 
         appUpdateManager = AppUpdateManagerFactory.create(getApplicationContext());
@@ -99,6 +106,14 @@ public class doTask extends AppCompatActivity implements View.OnClickListener {
             case R.id.follow:
                 startTask();
                 click += 1;
+                break;
+            case R.id.proof:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://youtu.be/Azd_bJQBvmw"));
+                startActivity(browserIntent);
+                break;
+            case R.id.rating:
+                Intent browserIntents = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.hanif.tikfollow"));
+                startActivity(browserIntents);
                 break;
         }
     }

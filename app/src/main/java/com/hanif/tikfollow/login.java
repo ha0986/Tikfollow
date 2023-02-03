@@ -5,11 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.Collections;
 import java.util.Objects;
 
 public class login extends AppCompatActivity {
@@ -19,7 +17,7 @@ public class login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Button done = findViewById(R.id.done);
         Button gues = findViewById(R.id.gp);
-        EditText text = findViewById(R.id.editTextTextPersonName3);
+        EditText text = findViewById(R.id.linktext);
         String check = getIntent().getStringExtra("change");
 
 

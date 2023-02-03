@@ -30,4 +30,14 @@
     <string name="claim_them_for_free">Claim them for free</string>
     <string name="claim_daily_bonus">CLick to claim your bonus</string>
     <string name="gj">A</string>
+    <string name="follow">    + Follow     </string>
+    <string name="_200">     +200      </string>
+    <string name="jokes">  Jokes  </string>
+    <string name="rate_me"> Rate me </string>
+    <string name="download"> Download </string>
+    <string name="proof">Proof</string>
+    <string name="get_video">Get video</string>
+    <string name="enter_the_url">Enter the url</string>
+    <string name="todo">TODO</string>
+    <string name="downloads">Download</string>
 </resources>
